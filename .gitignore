@@ -1,0 +1,7 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv_verify/
+.ipynb_checkpoints/
+.env
