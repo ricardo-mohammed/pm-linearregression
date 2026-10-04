@@ -87,7 +87,7 @@ class RegressionAnalyzer:
         print(f"🔄 Evaluating streaming data with T={self.T}s window...")
         
         # Dictionary to keep track of continuous violation times for each axis
-        # Format: { 'Axis_1': {'alert_time': 0, 'error_time': 0, 'last_violation_time': -99} }
+        # Format: { 'Axis #1': {'alert_time': 0, 'error_time': 0, 'last_violation_time': -99} }
         violation_trackers = {
             col: {'alert_time': 0, 'error_time': 0, 'last_violation_time': -99} 
             for col in self.axis_cols
@@ -149,3 +149,47 @@ class RegressionAnalyzer:
 
         print(f"✅ Stream evaluation complete. Detected {len(events_log)} events.")
         return pd.DataFrame(events_log)
+
+    
+    
+    def plot_regression_with_alerts(self, df_stream, events_df):
+        """
+        Plots the regression lines with the synthetic data overlaid,
+        and marks the exact locations of Alerts and Errors.
+        """
+        print("🔄 Generating final regression plots with Alert/Error overlays...")
+        
+        fig, axes = plt.subplots(2, 4, figsize=(20, 10))
+        axes = axes.flatten()
+        
+        X_stream = df_stream['Time'].values.reshape(-1, 1)
+        
+        for i, col in enumerate(self.axis_cols):
+            y_stream = df_stream[col].values
+            y_pred = self.models[col].predict(X_stream)
+            
+            # Plot the synthetic data and the regression line
+            axes[i].scatter(df_stream['Time'], y_stream, color='gray', alpha=0.3, s=10, label='Streamed Data')
+            axes[i].plot(df_stream['Time'], y_pred, color='blue', linewidth=2, label='Regression Line')
+            
+            # Filter events for this specific axis
+            axis_events = events_df[events_df['Axis'] == col]
+            
+            # Overlay ALERTS (Yellow triangles)
+            alerts = axis_events[axis_events['Type'] == 'ALERT']
+            if not alerts.empty:
+                axes[i].scatter(alerts['Time'], y_stream[alerts.index], color='orange', marker='^', s=50, label=f'Alerts ({len(alerts)})', zorder=5)
+                
+            # Overlay ERRORS (Red stars)
+            errors = axis_events[axis_events['Type'] == 'ERROR']
+            if not errors.empty:
+                axes[i].scatter(errors['Time'], y_stream[errors.index], color='red', marker='*', s=100, label=f'Errors ({len(errors)})', zorder=5)
+            
+            axes[i].set_title(f"{col}: Regression & Anomalies")
+            axes[i].set_xlabel("Time (seconds)")
+            axes[i].set_ylabel("Standardized Current")
+            axes[i].legend(fontsize=8)
+            
+        plt.tight_layout()
+        plt.show()
+        print("✅ Final visualizations generated.")
