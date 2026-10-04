@@ -5,3 +5,4 @@ __pycache__/
 .venv_verify/
 .ipynb_checkpoints/
 .env
+.env.zip
