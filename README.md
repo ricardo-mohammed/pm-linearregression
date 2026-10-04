@@ -93,7 +93,7 @@ All triggered predictive maintenance events are captured and logged into a struc
 │   ├── synthetic_testing_stream.csv  # Generated testing data
 │   └── alert_error_log.csv           # Logged alerts and errors
 ├── notebooks/
-│   └── main.ipynb        # Main execution notebook
+│   └── pm_linear_regression.ipynb        # Main execution notebook
 └── src/
     ├── data_loader.py    # Neon DB connection and OOP data ingestion
     ├── preprocessing.py  # Scaling, Z-score standardization, synthetic data generation
