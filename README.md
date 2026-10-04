@@ -58,7 +58,8 @@ Per the assignment requirements, thresholds were **not hardcoded** as fixed valu
 ### 4.1 Residual Analysis & Threshold Discovery
 The following plots show the distribution of residuals for the 8 axes. The vertical lines indicate the dynamically discovered `MinC` (Orange) and `MaxC` (Red) thresholds based on the standard deviation of the positive residuals.
 
-> **[INSERT SCREENSHOT HERE: The 2x4 grid of residual histograms showing the MinC and MaxC threshold lines]**
+<img width="1789" height="790" alt="Residuals" src="https://github.com/user-attachments/assets/df0ae91f-0fad-4879-8b40-254952ac6fa9" />
+
 
 ### 4.2 Streaming Simulation & Anomaly Detection
 The final dashboard overlays the streamed synthetic testing data and the trained linear regression baselines. 
@@ -69,12 +70,14 @@ The final dashboard overlays the streamed synthetic testing data and the trained
 
 This visual confirmation proves that the regression-based anomaly detection successfully identifies the injected continuous anomalies, validating our threshold discovery process.
 
-> **[INSERT SCREENSHOT HERE: The 2x4 grid of regression plots with the gray data points, blue regression lines, and orange/red alert/error markers]**
+<img width="1986" height="990" alt="Regression Anomalies" src="https://github.com/user-attachments/assets/b1fcdbf5-d94e-4dee-be87-eb5c1e6757aa" />
+
 
 ### 4.3 Event Logging
 All triggered predictive maintenance events are captured and logged into a structured CSV file (`data/alert_error_log.csv`) and inserted into the Neon `streaming_telemetry` table for auditing.
 
-> **[INSERT SCREENSHOT HERE: A screenshot of the events_df output in the Jupyter Notebook showing the Time, Axis, Type (ALERT/ERROR), and Duration]**
+<img width="1347" height="575" alt="image" src="https://github.com/user-attachments/assets/36f00e5c-fbf6-4aa3-8bdf-d516c252413d" />
+
 
 ---
 
