@@ -100,3 +100,6 @@ All triggered predictive maintenance events are captured and logged into a struc
     ├── model.py                 # Regression fitting, residual analysis, threshold discovery
     └── streaming_simulator.py   # CSV -> DB time-based streaming simulation
 ```
+
+---
+*Disclosure: This project was developed with the assistance of Qwen, an AI language model. AI was utilized for code scaffolding, debugging syntax errors, formatting Markdown documentation, and suggesting software engineering best practices. All analytical decisions, statistical interpretations, reflection answers, and final implementations were reviewed, validated, and authored by the student.*
